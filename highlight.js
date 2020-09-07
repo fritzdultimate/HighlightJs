@@ -121,7 +121,7 @@ class Highlight {
         return result;
     }
 
-    match() {
+    style() {
         let content = DOC.body.innerHTML,
         regex = /(\s+?)`{3}\w+/;
         while(regex.test(content)) {
@@ -143,7 +143,7 @@ class Highlight {
                 content = content.substring(0, s + len) + content.substring(end + 3, content.length);
                 content = content.replace(regex, 'HIGHLIGHT_CODE_SNIPPET_CONSTANT');
                 rest = this.excTag(rest);
-                rest = this.style(identifier, rest); // Highlight Codes
+                rest = this.match(identifier, rest); // Highlight Codes
                 /*
                 *******************************************************************
                 ******************************************************************/
@@ -189,7 +189,7 @@ class Highlight {
         DOC.body.innerHTML = content;
     }
 
-    style(lang, snippet) {
+    match(lang, snippet) {
         lang = lang.toUpperCase() == 'JAVASCRIPT' ? 'js' : lang.toLowerCase();
         snippet = this[lang + 'Mode'](snippet);
         return snippet;
